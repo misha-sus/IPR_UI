@@ -9,38 +9,54 @@ import static AllSelenide.SelenideDriver.*;
 
 public class MailPageAuthorized {
 
-    //Кнопка 'Написать письмо'
+    /**
+     * Кнопка 'Написать письмо'
+     */
     public static WebElement buttonWriteLetter() {
         return $x(byText("Написать письмо"));
     }
 
-    //Кнопка 'Входящие'
+    /**
+     * Кнопка 'Входящие'
+     */
     public static WebElement buttonIncoming() {
-        return $x(byHref("inbox"));
+        return waitElement(byText("Входящие"));
     }
 
-    //Кнопка 'Письма себе'
+    /**
+     * Кнопка 'Письма себе'
+     */
     public static WebElement buttonEmailsToYourself() {
         return $x(byHref("tomyself"));
     }
 
-    //Кнопка 'Отправленные'
+    /**
+     * Кнопка 'Отправленные'
+     */
     public static WebElement buttonSent() {
-        return $x(byHref("sent"));
+        return waitElement(byHref("sent"));
     }
 
-    //Иконка логотипа
+    /**
+     * Иконка логотипа
+     */
     public static WebElement imgLog() {
         return waitElement(byClassContaining("logo__img"));
     }
 
-    //Список входящих сообщение
+    /**
+     * Список входящих сообщение
+     */
     public static WebElement listMessages() {
-        return $x(byClassContaining("letter-list__react"));
+        return waitElement(byClassContaining("letter-list__react"));
     }
 
-    //Список сообщений
-    public static List<WebElement> list(int numberOfElementsToBeMoreThan)  {
-        return waitListElements((byClassContaining("llc__background")),numberOfElementsToBeMoreThan);
+    /**
+     * Список сообщений
+     *
+     * @param numberOfElementsToBeMoreThan -  минимальное количество возможных сообщений
+     */
+    public static List<WebElement> list(int numberOfElementsToBeMoreThan) {
+        return waitListElements((byClassContaining("llc__background")), numberOfElementsToBeMoreThan);
     }
 }

@@ -6,7 +6,9 @@ import static AllSelenide.ByAttribute.byClassContaining;
 import static AllSelenide.SelenideDriver.$x;
 
 public class MainPage {
-  //Кнопка 'Войти'
+  /**
+   * Кнопка 'Войти'
+   */
   public static WebElement buttonLogin() {
     return $x(byClassContaining("resplash-btn_primary"));
   }

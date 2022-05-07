@@ -6,6 +6,7 @@ public abstract class ByAttribute {
 
     /**
      * Создает селектор по атрибуту элемента с заданным типом
+     *
      * @param elementType             - тип элемента
      * @param attributeName           - название атрибута
      * @param attributeContainedValue - частичное значение заданного атрибута
@@ -16,6 +17,7 @@ public abstract class ByAttribute {
 
     /**
      * Создает селектор по частичному атрибуту class элемента
+     *
      * @param classContainedValue - частичное значение поля class
      */
 
@@ -25,6 +27,7 @@ public abstract class ByAttribute {
 
     /**
      * Создает селектор по частичному атрибуту class элемента с заданным типом
+     *
      * @param elementType         - тип элемента
      * @param classContainedValue - частичное значение поля class
      */
@@ -34,6 +37,7 @@ public abstract class ByAttribute {
 
     /**
      * Создает селектор по частичному атрибуту placeholder элемента с заданным типом
+     *
      * @param placeholderContainedValue - частичное значение поля placeholder
      */
     public static By byPlaceholderContaining(String placeholderContainedValue) {
@@ -42,26 +46,28 @@ public abstract class ByAttribute {
 
     /**
      * Создает селектор по частичному атрибуту placeholder элемента с заданным типом
+     *
      * @param text - частичное значение поля placeholder
      */
     public static By byText(String text) {
-        return  By.xpath (String.format("//*[text()='%s']",text));
+        return By.xpath(String.format("//*[text()='%s']", text));
     }
 
     /**
      * @param elementType - тип элемента
-     * @param text - частичное значение заданного атрибута
+     * @param text        - частичное значение заданного атрибута
      */
-    public static By byText(String elementType,String text) {
-        return  By.xpath (String.format("//*[@id=\"root\"]//%s[text()='%s']",elementType,text));
+    public static By byText(String elementType, String text) {
+        return By.xpath(String.format("//*[@id=\"root\"]//%s[text()='%s']", elementType, text));
     }
 
     /**
      * Создает селектор по частичному атрибуту href элемента с заданным типом
+     *
      * @param text - частичное значение поля href
      */
     public static By byHref(String text) {
-        return  byAttributeContaining("a","href",text);
+        return byAttributeContaining("a", "href", text);
     }
 }
 

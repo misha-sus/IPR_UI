@@ -8,23 +8,35 @@ import static AllSelenide.SelenideDriver.$x;
 
 public class ModalWindowMessages {
 
-    //Кому отправить сообщение
+    /**
+     * Поле ввода отправителя
+     *
+     * @param email - email отправителя
+     */
     public static void senderEmail(String email) {
         $x(byClassContaining("container--H9")).sendKeys(email);
     }
 
-    //Содержание сообщения
+    /**
+     * Поле ввода сообщения
+     *
+     * @param text - текст сообщения
+     */
     public static void enterMessageText(String text) {
-        $x(byAttributeContaining("div","role","textbox")).sendKeys(text);
+        $x(byAttributeContaining("div", "role", "textbox")).sendKeys(text);
     }
 
-    //Кнопка 'Отправить'
-    public static WebElement buttonSend(){
-        return  $x(byText("Отправить"));
+    /**
+     * Кнопка 'Отправить'
+     */
+    public static WebElement buttonSend() {
+        return $x(byText("Отправить"));
     }
 
-    //Кнопка 'Закрыть'
-    public static WebElement buttonClose(){
-        return  $x(ByAttribute.byAttributeContaining("span","title","Закрыть"));
+    /**
+     * Кнопка 'Закрыть'
+     */
+    public static WebElement buttonClose() {
+        return $x(ByAttribute.byAttributeContaining("span", "title", "Закрыть"));
     }
 }

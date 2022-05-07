@@ -15,9 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SelenideDriver  implements AfterEachCallback {
     private static RemoteWebDriver driver;
-    private static WebElement element;
 
-    //открывает сайт
+    /**
+     * Открывает сайт
+     *
+     * @param URL - ссылка
+     */
     public static void open(String URL) {
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
@@ -29,45 +32,42 @@ public class SelenideDriver  implements AfterEachCallback {
         driver.get(URL);
     }
 
-    // локтор xpath
+    /**
+     * Обертка для xpath
+     */
     public static WebElement $x(By by) {
-        element = driver.findElement(by);
-        return element;
+        return driver.findElement(by);
     }
 
-    //локатор CSS
-    public static WebElement $(String cssSelector) {
-        element = driver.findElement(By.cssSelector(cssSelector));
-        return element;
-    }
-
-    //перейти в iframe
+    /**
+     * Перейти в iframe
+     */
     public static void iframe(WebElement webElement) {
         driver.switchTo().frame(webElement);
     }
 
-    //Список элементов
-    public static List<WebElement> listElement(By by) {
-        return driver.findElements(by);
-    }
-
-    //закрывает браузер\
+    /**
+     * Закрывает браузер
+     */
     public static void close() {
         driver.quit();
     }
 
-    //ожидание по локатору
+    /**
+     * Ожидание по локатору
+     */
     public static WebElement waitElement(By by) {
         return new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
-    //ожидание по минимальному количеству
-    public static List<WebElement> waitListElements(By by, int numberOfElementsToBeMoreThan)  {
-        List<WebElement> elements;
-            elements  = new WebDriverWait(driver, 5, 500)
-                    .until(ExpectedConditions
-                            .numberOfElementsToBeMoreThan((by),numberOfElementsToBeMoreThan));
-        return elements;
+
+    /**
+     * ожидание по минимальному количеству найденных элементов
+     */
+    public static List<WebElement> waitListElements(By by, int numberOfElementsToBeMoreThan) {
+        return new WebDriverWait(driver, 5, 500)
+                .until(ExpectedConditions
+                        .numberOfElementsToBeMoreThan((by), numberOfElementsToBeMoreThan));
     }
 
     @Override

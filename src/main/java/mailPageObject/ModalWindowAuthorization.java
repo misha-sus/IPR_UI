@@ -8,15 +8,52 @@ import static AllSelenide.SelenideDriver.iframe;
 
 public class ModalWindowAuthorization {
 
+    /**
+     * Перейти в iframe авторизации
+     */
     public static WebElement iframeLogin() {
         return $x(byClassContaining("ag-popup__frame__layout__iframe"));
     }
 
-    public static void enterLoginAndPassword(String login, String password) {
+    /**
+     * Поле для ввода логина
+     */
+    public static WebElement accountName() {
+        return $x(byPlaceholderContaining("Имя аккаунта"));
+    }
+
+    /**
+     * Кнопка 'Ввести пароль'
+     */
+    public static WebElement enterPassword() {
+        return $x(byText("span", "Ввести пароль"));
+    }
+
+    /**
+     * Поле для ввода пароля
+     */
+    public static WebElement password() {
+        return $x(byPlaceholderContaining("Пароль"));
+    }
+
+    /**
+     * Кнопка 'Войти'
+     */
+    public static WebElement enter() {
+        return $x(byText("span", "Войти"));
+    }
+
+    /**
+     * Полная авторизация по логину и паролю
+     *
+     * @param login    - Логин
+     * @param password - Пароль
+     */
+    public static void fullLoginAndPasswordAuthorization(String login, String password) {
         iframe(iframeLogin());
-        $x(byPlaceholderContaining("Имя аккаунта")).sendKeys(login);
-        $x(byText("span","Ввести пароль")).click();
-        $x(byPlaceholderContaining("Пароль")).sendKeys(password);
-        $x(byText("span","Войти")).click();
+        accountName().sendKeys(login);
+        enterPassword().click();
+        password().sendKeys(password);
+        enter().click();
     }
 }
