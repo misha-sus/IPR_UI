@@ -1,11 +1,11 @@
-package mailPageObject;
+package ui.mailPageObject;
 
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static AllSelenide.ByAttribute.*;
-import static AllSelenide.SelenideDriver.*;
+import static ui.AllSelenide.ByAttribute.*;
+import static ui.AllSelenide.SelenideDriver.*;
 
 public class MailPageAuthorized {
 

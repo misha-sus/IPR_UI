@@ -1,12 +1,14 @@
-import AllSelenide.SelenideDriver;
+package ui;
+
+import ui.AllSelenide.SelenideDriver;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebElement;
 
-import static AllSelenide.SelenideDriver.open;
-import static mailPageObject.MailPageAuthorized.*;
-import static mailPageObject.MainPage.buttonLogin;
-import static mailPageObject.ModalWindowAuthorization.fullLoginAndPasswordAuthorization;
-import static mailPageObject.ModalWindowMessages.*;
+import static ui.AllSelenide.SelenideDriver.open;
+import static ui.mailPageObject.MailPageAuthorized.*;
+import static ui.mailPageObject.MainPage.buttonLogin;
+import static ui.mailPageObject.ModalWindowAuthorization.fullLoginAndPasswordAuthorization;
+import static ui.mailPageObject.ModalWindowMessages.*;
 
 public class SeleniumTest {
     private static final String login = "micha26091997@mail.ru";
@@ -50,7 +52,7 @@ public class SeleniumTest {
     /**
      * Нажимает на элемент в меню и считает количество найденных элементов
      *
-     * @param element - нажимае на нужный элемент
+     * @param element - нажимает на нужный элемент
      * @return - количество сообщений
      */
     private static int numberMessagesBeforeSend(WebElement element) {
@@ -61,7 +63,7 @@ public class SeleniumTest {
     /**
      * Нажимает на элемент в меню и считает количество найденных элементов
      *
-     * @param element                      - нажимае на нужный элемент в меню
+     * @param element                      - нажимает на нужный элемент в меню
      * @param numberOfElementsToBeMoreThan - число элементов больше чем заданное значение
      * @return -количество сообщений
      */

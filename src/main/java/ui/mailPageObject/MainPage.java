@@ -1,9 +1,9 @@
-package mailPageObject;
+package ui.mailPageObject;
 
 import org.openqa.selenium.WebElement;
 
-import static AllSelenide.ByAttribute.byClassContaining;
-import static AllSelenide.SelenideDriver.$x;
+import static ui.AllSelenide.ByAttribute.byClassContaining;
+import static ui.AllSelenide.SelenideDriver.$x;
 
 public class MainPage {
   /**

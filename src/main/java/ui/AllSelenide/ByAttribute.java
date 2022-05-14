@@ -1,4 +1,4 @@
-package AllSelenide;
+package ui.AllSelenide;
 
 import org.openqa.selenium.By;
 

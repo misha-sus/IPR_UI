@@ -1,10 +1,10 @@
-package mailPageObject;
+package ui.mailPageObject;
 
-import AllSelenide.ByAttribute;
+import ui.AllSelenide.ByAttribute;
 import org.openqa.selenium.WebElement;
 
-import static AllSelenide.ByAttribute.*;
-import static AllSelenide.SelenideDriver.$x;
+import static ui.AllSelenide.ByAttribute.*;
+import static ui.AllSelenide.SelenideDriver.$x;
 
 public class ModalWindowMessages {
 

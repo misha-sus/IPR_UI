@@ -1,10 +1,10 @@
-package mailPageObject;
+package ui.mailPageObject;
 
 import org.openqa.selenium.WebElement;
 
-import static AllSelenide.ByAttribute.*;
-import static AllSelenide.SelenideDriver.$x;
-import static AllSelenide.SelenideDriver.iframe;
+import static ui.AllSelenide.ByAttribute.*;
+import static ui.AllSelenide.SelenideDriver.$x;
+import static ui.AllSelenide.SelenideDriver.iframe;
 
 public class ModalWindowAuthorization {
 
