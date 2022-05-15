@@ -1,5 +1,7 @@
 package api;
 
+import api.Pojo.Car;
+import api.Pojo.User;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -20,18 +22,15 @@ public class ApiTest {
     final String ADDCAR = "/addCar";
     final String CARS = "/cars";
     final String USERS = "/users";
-   private final JdbcConnection jdbcConnection = new JdbcConnection();
-
+    private final JdbcConnection jdbcConnection = new JdbcConnection();
 
     @Test
-    @Order(1)
     @DisplayName("Запросом в базу, проверить количество пользователей.")
     public void checkNumberUsers() {
         Assertions.assertEquals(userList().size(), jdbcConnection.usersBD().size());
     }
 
     @Test
-    @Order(2)
     @DisplayName("Добавить машину, проверить в базе, что она появилась.")
     public void addCarAndCheckBDAppear() {
         Car carReq = new Car("Electric", "Toyoto", "bZ4X", 60000.0);
@@ -44,7 +43,7 @@ public class ApiTest {
     }
 
     @Test
-    @Order(3)
+    @Order(1)
     @DisplayName("Добавить пользователя, проверить в базе, что она появилась.")
     public void addUserAndCheckBDAppear() {
         User userReq = new User("Bill", "Johnson", 40, "MALE", 900000.0);
@@ -57,33 +56,33 @@ public class ApiTest {
     }
 
     @Test
-    @Order(4)
+    @Order(2)
     @DisplayName("Добавить деньги пользователю, проверить в базе, что она появилась.")
     public void addUserMoneyAndCheckBDAppear() {
-        int indexAddUser = userList().size();
-        Double moneyBeforeAdd = userList().get(indexAddUser - 1).getMoney();
+        int idAddUser = userList().size();
+        Double moneyBeforeAdd = userList().get(idAddUser - 1).getMoney();
         Double moneyAdd = 100000.0;
         given()
-                .spec(specification(String.format("/user/%s/money/%s", indexAddUser, moneyAdd)))
+                .spec(specification(String.format("/user/%s/money/%s", idAddUser, moneyAdd)))
                 .post();
         Assertions.assertEquals(moneyAdd + moneyBeforeAdd,
-                jdbcConnection.usersBD().get(indexAddUser - 1).getMoney());
+                jdbcConnection.usersBD().get(idAddUser - 1).getMoney());
     }
 
     @Test
-    @Order(5)
+    @Order(3)
     @DisplayName("Купить пользователю машину, проверить в базе, что она появилась.")
     public void addUserCarAndCheckBDAppear() {
-        int indexAddUser = userList().size() ;
-        int indexAddCar = carsList().size() ;
-        int idAddCar = carsList().get(indexAddCar -1).getId() ;
+        int indexAddUser = userList().size();
+        int indexAddCar = carsList().size() - 1;
+        int idAddCar = carsList().get(indexAddCar).getId();
         given()
                 .spec(specification(String.format("/house/3/settle/%s", indexAddUser)))
                 .post();
         given()
-                .spec(specification(String.format("/user/%s/buyCar/%s", indexAddUser,idAddCar)))
+                .spec(specification(String.format("/user/%s/buyCar/%s", indexAddUser, idAddCar)))
                 .post();
-        Assertions.assertEquals(indexAddUser, jdbcConnection.carsBD().get(indexAddCar-1).getPerson_id());
+        Assertions.assertEquals(indexAddUser, jdbcConnection.carsBD().get(indexAddCar).getPerson_id());
     }
 
     private RequestSpecification specification(String basePath) {
@@ -94,8 +93,12 @@ public class ApiTest {
         return builder.build();
     }
 
-    private Response response (String basePath){
-        return  given()
+    /**
+     * @param basePath - Базовый путь
+     * @return - Ответ по нужному get запросу
+     */
+    private Response response(String basePath) {
+        return given()
                 .spec(specification(basePath))
                 .when()
                 .get()
@@ -103,10 +106,16 @@ public class ApiTest {
                 .extract().response();
     }
 
+    /**
+     * @return - Список User полученный с помощью get запроса
+     */
     private List<User> userList() {
         return Arrays.asList(response(USERS).getBody().as(User[].class));
     }
 
+    /**
+     * @return - Список Car полученный с помощью get запроса
+     */
     private List<Car> carsList() {
         return Arrays.asList(response(CARS).getBody().as(Car[].class));
     }
