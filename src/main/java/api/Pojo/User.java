@@ -2,31 +2,13 @@ package api.Pojo;
 
 import java.util.Objects;
 
-public class User {
+public class User implements Comparable<User>{
     private Integer id;
     private String firstName;
     private String secondName;
     private Integer age;
     private Double money;
     private String sex;
-
-    public User(String firstName, String secondName, Integer age, String sex, Double money) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.age = age;
-        this.sex = sex;
-        this.money = money;
-    }
-
-    public User(Integer id, String firstName, String secondName, Integer age, String sex, Double money) {
-        this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.age = age;
-        this.sex = sex;
-        this.money = money;
-    }
-
     public User() {
     }
 
@@ -34,48 +16,54 @@ public class User {
         return id;
     }
 
-    public void setId(Integer id) {
+    public User setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getSecondName() {
         return secondName;
     }
 
-    public void setSecondName(String secondName) {
+    public User setSecondName(String secondName) {
         this.secondName = secondName;
+        return this;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public User setAge(Integer age) {
         this.age = age;
+        return this;
     }
 
     public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public User setMoney(Double money) {
         this.money = money;
+        return this;
     }
 
     public String getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public User setSex(String sex) {
         this.sex = sex;
+        return this;
     }
 
     @Override
@@ -91,5 +79,9 @@ public class User {
         return Objects.hash(firstName, secondName, age, money);
     }
 
+    @Override
+    public int compareTo(User o) {
+        return this.getId() - o.getId();
+    }
 }
 

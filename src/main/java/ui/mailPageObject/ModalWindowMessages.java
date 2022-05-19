@@ -13,7 +13,7 @@ public class ModalWindowMessages {
      *
      * @param email - email отправителя
      */
-    public static void senderEmail(String email) {
+    public  void senderEmail(String email) {
         $x(byClassContaining("container--H9")).sendKeys(email);
     }
 
@@ -22,21 +22,21 @@ public class ModalWindowMessages {
      *
      * @param text - текст сообщения
      */
-    public static void enterMessageText(String text) {
+    public  void enterMessageText(String text) {
         $x(byAttributeContaining("div", "role", "textbox")).sendKeys(text);
     }
 
     /**
      * Кнопка 'Отправить'
      */
-    public static WebElement buttonSend() {
+    public  WebElement buttonSend() {
         return $x(byText("Отправить"));
     }
 
     /**
      * Кнопка 'Закрыть'
      */
-    public static WebElement buttonClose() {
+    public  WebElement buttonClose() {
         return $x(ByAttribute.byAttributeContaining("span", "title", "Закрыть"));
     }
 }

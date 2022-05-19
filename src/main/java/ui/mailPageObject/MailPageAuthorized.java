@@ -12,42 +12,42 @@ public class MailPageAuthorized {
     /**
      * Кнопка 'Написать письмо'
      */
-    public static WebElement buttonWriteLetter() {
+    public  WebElement buttonWriteLetter() {
         return $x(byText("Написать письмо"));
     }
 
     /**
      * Кнопка 'Входящие'
      */
-    public static WebElement buttonIncoming() {
+    public  WebElement buttonIncoming() {
         return waitElement(byText("Входящие"));
     }
 
     /**
      * Кнопка 'Письма себе'
      */
-    public static WebElement buttonEmailsToYourself() {
+    public  WebElement buttonEmailsToYourself() {
         return $x(byHref("tomyself"));
     }
 
     /**
      * Кнопка 'Отправленные'
      */
-    public static WebElement buttonSent() {
+    public  WebElement buttonSent() {
         return waitElement(byHref("sent"));
     }
 
     /**
      * Иконка логотипа
      */
-    public static WebElement imgLog() {
+    public  WebElement imgLog() {
         return waitElement(byClassContaining("logo__img"));
     }
 
     /**
      * Список входящих сообщение
      */
-    public static WebElement listMessages() {
+    public  WebElement listMessages() {
         return waitElement(byClassContaining("letter-list__react"));
     }
 
@@ -56,7 +56,7 @@ public class MailPageAuthorized {
      *
      * @param numberOfElementsToBeMoreThan -  минимальное количество возможных сообщений
      */
-    public static List<WebElement> list(int numberOfElementsToBeMoreThan) {
+    public  List<WebElement> list(int numberOfElementsToBeMoreThan) {
         return waitListElements((byClassContaining("llc__background")), numberOfElementsToBeMoreThan);
     }
 }

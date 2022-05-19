@@ -3,43 +3,43 @@ package ui.mailPageObject;
 import org.openqa.selenium.WebElement;
 
 import static ui.AllSelenide.ByAttribute.*;
-import static ui.AllSelenide.SelenideDriver.$x;
-import static ui.AllSelenide.SelenideDriver.iframe;
+import static ui.AllSelenide.SelenideDriver.*;
+
 
 public class ModalWindowAuthorization {
 
     /**
      * Перейти в iframe авторизации
      */
-    public static WebElement iframeLogin() {
+    public  WebElement iframeLogin() {
         return $x(byClassContaining("ag-popup__frame__layout__iframe"));
     }
 
     /**
      * Поле для ввода логина
      */
-    public static WebElement accountName() {
+    public  WebElement accountName() {
         return $x(byPlaceholderContaining("Имя аккаунта"));
     }
 
     /**
      * Кнопка 'Ввести пароль'
      */
-    public static WebElement enterPassword() {
+    public  WebElement enterPassword() {
         return $x(byText("span", "Ввести пароль"));
     }
 
     /**
      * Поле для ввода пароля
      */
-    public static WebElement password() {
+    public  WebElement password() {
         return $x(byPlaceholderContaining("Пароль"));
     }
 
     /**
      * Кнопка 'Войти'
      */
-    public static WebElement enter() {
+    public  WebElement enter() {
         return $x(byText("span", "Войти"));
     }
 
@@ -50,10 +50,21 @@ public class ModalWindowAuthorization {
      * @param password - Пароль
      */
     public static void fullLoginAndPasswordAuthorization(String login, String password) {
-        iframe(iframeLogin());
-        accountName().sendKeys(login);
-        enterPassword().click();
-        password().sendKeys(password);
-        enter().click();
+        ModalWindowAuthorization modalWindowAuthorization = new ModalWindowAuthorization();
+        iframe(modalWindowAuthorization.iframeLogin());
+        modalWindowAuthorization.accountName().sendKeys(login);
+        modalWindowAuthorization.enterPassword().click();
+        modalWindowAuthorization.password().sendKeys(password);
+        modalWindowAuthorization.enter().click();
+    }
+
+    public static void openMailAndAuthorization() {
+        final String login = "micha26091997@mail.ru";
+        final String password = "TprEU2Y3ta$u";
+        String URL = "https://mail.ru/";
+        final MainPage mainPage = new MainPage();
+        open(URL);
+        mainPage.buttonLogin().click();
+        fullLoginAndPasswordAuthorization(login, password);
     }
 }

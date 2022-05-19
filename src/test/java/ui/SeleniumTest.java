@@ -1,63 +1,71 @@
 package ui;
 
-import ui.AllSelenide.SelenideDriver;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
+import ui.AllSelenide.SelenideDriver;
+import ui.mailPageObject.MailPageAuthorized;
+import ui.mailPageObject.MainPage;
+import ui.mailPageObject.ModalWindowMessages;
 
-import static ui.AllSelenide.SelenideDriver.open;
-import static ui.mailPageObject.MailPageAuthorized.*;
-import static ui.mailPageObject.MainPage.buttonLogin;
-import static ui.mailPageObject.ModalWindowAuthorization.fullLoginAndPasswordAuthorization;
-import static ui.mailPageObject.ModalWindowMessages.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static ui.mailPageObject.ModalWindowAuthorization.openMailAndAuthorization;
 
 public class SeleniumTest {
     private static final String login = "micha26091997@mail.ru";
     private static final String password = "TprEU2Y3ta$u";
     private final static String URL = "https://mail.ru/";
+    private final static MailPageAuthorized mailPageAuthorized = new MailPageAuthorized();
+    private final static MainPage mainPage = new MainPage();
+    private final static ModalWindowMessages modalWindowMessages = new ModalWindowMessages();
 
     @BeforeEach
     void start() {
-        open(URL);
-        buttonLogin().click();
-        fullLoginAndPasswordAuthorization(login, password);
+       openMailAndAuthorization();
     }
 
     @Test
     @DisplayName("Проверить отображение иконки логина.")
     void displayLoginIcon() {
-        Assertions.assertTrue(imgLog().isDisplayed(), "Иконка mail не отображается ");
+
+        assertTrue(mailPageAuthorized.imgLog().isDisplayed(), "Иконка mail не отображается ");
     }
 
     @Test
     @DisplayName("Проверка отображения списка входящих сообщений.")
     void displayingListIncomingMessages() {
-        buttonIncoming().click();
-        Assertions.assertTrue(listMessages().isDisplayed(), "Список входящих сообщение не отображается");
+        mailPageAuthorized.buttonIncoming().click();
+        assertTrue(mailPageAuthorized.listMessages().isDisplayed(), "Список входящих сообщение не отображается");
     }
 
     @Test
     @DisplayName("Проверить, что список писем увеличился после отправки себе с двух сторон")
     void listEmailsEnlargedAfterSending() {
-        int numberMessagesSent = numberMessagesBeforeSend(buttonSent());
-        int numberMessagesMySelf = numberMessagesBeforeSend(buttonEmailsToYourself());
-        buttonWriteLetter().click();
-        senderEmail(login);
-        enterMessageText("Say my name ? \nYou’re god damn right");
-        buttonSend().click();
-        buttonClose().click();
-        Assertions.assertEquals(numberMessagesMySelf + 1, numberMessages(buttonEmailsToYourself(), numberMessagesMySelf));
-        Assertions.assertEquals(numberMessagesSent + 1, numberMessages(buttonSent(), numberMessagesSent));
+        mailPageAuthorized.buttonSent().click();
+        int numberMessagesSent = numberMessagesBeforeSend();
+        mailPageAuthorized.buttonEmailsToYourself().click();
+        int numberMessagesMySelf = numberMessagesBeforeSend();
+
+        mailPageAuthorized.buttonWriteLetter().click();
+        modalWindowMessages.senderEmail(login);
+        modalWindowMessages.enterMessageText("Say my name ? \nYou’re god damn right");
+        modalWindowMessages.buttonSend().click();
+        modalWindowMessages.buttonClose().click();
+
+        assertEquals(numberMessagesMySelf + 1, numberMessages(mailPageAuthorized.buttonEmailsToYourself(), numberMessagesMySelf));
+        assertEquals(numberMessagesSent + 1, numberMessages(mailPageAuthorized.buttonSent(), numberMessagesSent));
     }
 
     /**
-     * Нажимает на элемент в меню и считает количество найденных элементов
+     * Считает количество найденных элементов
      *
-     * @param element - нажимает на нужный элемент
      * @return - количество сообщений
      */
-    private static int numberMessagesBeforeSend(WebElement element) {
-        element.click();
-        return list(-1).size();
+    private static int numberMessagesBeforeSend() {
+        return mailPageAuthorized.list(-1).size();
     }
 
     /**
@@ -69,7 +77,7 @@ public class SeleniumTest {
      */
     private static int numberMessages(WebElement element, int numberOfElementsToBeMoreThan) {
         element.click();
-        return list(numberOfElementsToBeMoreThan).size();
+        return mailPageAuthorized.list(numberOfElementsToBeMoreThan).size();
     }
 
     @AfterEach
