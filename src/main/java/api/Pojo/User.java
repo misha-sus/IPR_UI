@@ -9,6 +9,7 @@ public class User implements Comparable<User>{
     private Integer age;
     private Double money;
     private String sex;
+    private Integer house_id;
     public User() {
     }
 
@@ -63,6 +64,15 @@ public class User implements Comparable<User>{
 
     public User setSex(String sex) {
         this.sex = sex;
+        return this;
+    }
+
+    public Integer getHouse_id() {
+        return house_id;
+    }
+
+    public User setHouse_id(Integer house_id) {
+        this.house_id = house_id;
         return this;
     }
 

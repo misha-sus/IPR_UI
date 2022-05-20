@@ -32,7 +32,8 @@ public class UserService implements UserDAO {
                         .setSecondName(rsUser.getString("second_name"))
                         .setAge(rsUser.getInt("age"))
                         .setSex(rsUser.getString("sex"))
-                        .setMoney(rsUser.getDouble("money")));
+                        .setMoney(rsUser.getDouble("money"))
+                        .setHouse_id(rsUser.getInt("house_id")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

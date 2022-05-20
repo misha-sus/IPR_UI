@@ -17,7 +17,6 @@ import static io.restassured.RestAssured.given;
 /**
  * Спецификация тестового API
  */
-
 public class RequestsApi {
 
     private RequestSpecification specification(String basePath) {
@@ -47,14 +46,6 @@ public class RequestsApi {
     public List<User> getUsersList() {
         List<User> users = Arrays.asList((response("/users").getBody().as(User[].class)));
         return users.stream().sorted(User::compareTo).collect(Collectors.toList());
-    }
-
-    /**
-     * @return - Список Car полученный с помощью get запроса
-     */
-    public List<Car> getCarsList() {
-        List<Car> cars = Arrays.asList(response("/cars").getBody().as(Car[].class));
-        return cars.stream().sorted(Car::compareTo).collect(Collectors.toList());
     }
 
     /**

@@ -6,6 +6,7 @@ import api.requestsApi.RequestsApi;
 import api.service.CarService;
 import api.service.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +17,8 @@ public class ApiTest {
 
     @Test
     @DisplayName("Запросом в базу, проверить количество пользователей.")
-    // набор пользователей по id и по всем полям
     public void checkNumberUsers() {
-        Assertions.assertEquals(requestsApi.getUsersList().size(), user.getAll().size());
+        Assertions.assertEquals(requestsApi.getUsersList(), user.getAll());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ApiTest {
     public void addUserMoneyAndCheckBDAppear() {
         int idAddUser = 2;
         Double moneyBeforeAdd = requestsApi.getUsersList().get(idAddUser - 1).getMoney();
-        Double moneyAdd = 61000.0;
+        Double moneyAdd = 1000.0;
 
         requestsApi.postAddMoneyUser(idAddUser, moneyAdd);
 
@@ -66,9 +66,9 @@ public class ApiTest {
     @Test
     @DisplayName("Купить пользователю машину, проверить в базе, что она появилась.")
     public void addUserCarAndCheckBDAppear() {
-        // брать пользака у которого есть дом ,( Assume )
-        int idAddUser = 5;
+        int idAddUser = 23;
         int idAddCar = 6;
+        Assumptions.assumeFalse(user.getAll().get(idAddUser-1).getHouse_id()==0);
 
         requestsApi.postAddCarUser(idAddUser, idAddCar);
 
