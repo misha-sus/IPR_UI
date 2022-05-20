@@ -1,6 +1,8 @@
 package ui.mailPageObject;
 
 import org.openqa.selenium.WebElement;
+import ui.util.FileReadUser;
+import ui.util.UserRole;
 
 import static ui.AllSelenide.ByAttribute.*;
 import static ui.AllSelenide.SelenideDriver.*;
@@ -58,13 +60,16 @@ public class ModalWindowAuthorization {
         modalWindowAuthorization.enter().click();
     }
 
-    public static void openMailAndAuthorization() {
-        final String login = "micha26091997@mail.ru";
-        final String password = "TprEU2Y3ta$u";
-        String URL = "https://mail.ru/";
-        final MainPage mainPage = new MainPage();
-        open(URL);
+    /**
+     * Авторизация по Роли
+     * @param userRole - Роль пользователя под которым авторизируемся.
+     */
+    public static void openSiteAndAuthorization(UserRole userRole) {
+        MainPage mainPage = new MainPage();
+        FileReadUser fileReadUser = new FileReadUser();
+        open(fileReadUser.getUserUI(userRole).getUrl());
         mainPage.buttonLogin().click();
-        fullLoginAndPasswordAuthorization(login, password);
+        fullLoginAndPasswordAuthorization(fileReadUser.getUserUI(userRole).getLogin(),
+                fileReadUser.getUserUI(userRole).getPassword());
     }
 }

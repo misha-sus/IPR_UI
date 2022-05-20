@@ -7,30 +7,25 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import ui.AllSelenide.SelenideDriver;
 import ui.mailPageObject.MailPageAuthorized;
-import ui.mailPageObject.MainPage;
 import ui.mailPageObject.ModalWindowMessages;
+import ui.util.UserRole;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ui.mailPageObject.ModalWindowAuthorization.openMailAndAuthorization;
+import static ui.mailPageObject.ModalWindowAuthorization.openSiteAndAuthorization;
 
 public class SeleniumTest {
-    private static final String login = "micha26091997@mail.ru";
-    private static final String password = "TprEU2Y3ta$u";
-    private final static String URL = "https://mail.ru/";
     private final static MailPageAuthorized mailPageAuthorized = new MailPageAuthorized();
-    private final static MainPage mainPage = new MainPage();
     private final static ModalWindowMessages modalWindowMessages = new ModalWindowMessages();
 
     @BeforeEach
     void start() {
-       openMailAndAuthorization();
+       openSiteAndAuthorization(UserRole.Misha);
     }
 
     @Test
     @DisplayName("Проверить отображение иконки логина.")
     void displayLoginIcon() {
-
         assertTrue(mailPageAuthorized.imgLog().isDisplayed(), "Иконка mail не отображается ");
     }
 
@@ -50,7 +45,7 @@ public class SeleniumTest {
         int numberMessagesMySelf = numberMessagesBeforeSend();
 
         mailPageAuthorized.buttonWriteLetter().click();
-        modalWindowMessages.senderEmail(login);
+        modalWindowMessages.senderEmail("micha26091997@mail.ru");
         modalWindowMessages.enterMessageText("Say my name ? \nYou’re god damn right");
         modalWindowMessages.buttonSend().click();
         modalWindowMessages.buttonClose().click();
