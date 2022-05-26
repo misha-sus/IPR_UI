@@ -15,16 +15,32 @@ import java.util.stream.Collectors;
 public class UserService implements UserDAO {
 
     /**
+     *
+     * @return - Полный список из таблицы PERSON
+     */
+    public List<User> getAllUsers(){
+        return getBDUsers("SELECT * From PERSON");
+    }
+
+    /**
+     *
+     * @return - Список User у которых есть дом из таблицы PERSON
+     */
+    public List<User> getAllUsersOwnHouse(){ return getBDUsers("SELECT * From PERSON WHERE house_id IS NOT NULL"); }
+
+    /**
+     * 
+     * @param sqlRequest - SQL запрос
      * @return - Список отсортированых пользователей полученный из базы данных.
      */
     @Override
-    public List<User> getAll()  {
+    public List<User> getBDUsers(String sqlRequest)  {
         List<User> usersBD = new ArrayList<>();
         ResultSet rsUser = null;
         try {
             var dbConnection = jb.getDBConnection();
             var statement = dbConnection.createStatement();
-            rsUser = statement.executeQuery("SELECT * From PERSON");
+            rsUser = statement.executeQuery(sqlRequest);
             while (rsUser.next()) {
                 usersBD.add(new User()
                         .setId(rsUser.getInt("id"))

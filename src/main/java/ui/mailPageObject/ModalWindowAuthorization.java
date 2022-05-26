@@ -13,35 +13,35 @@ public class ModalWindowAuthorization {
     /**
      * Перейти в iframe авторизации
      */
-    public  WebElement iframeLogin() {
+    public WebElement iframeLogin() {
         return $x(byClassContaining("ag-popup__frame__layout__iframe"));
     }
 
     /**
      * Поле для ввода логина
      */
-    public  WebElement accountName() {
+    public WebElement accountName() {
         return $x(byPlaceholderContaining("Имя аккаунта"));
     }
 
     /**
      * Кнопка 'Ввести пароль'
      */
-    public  WebElement enterPassword() {
+    public WebElement enterPassword() {
         return $x(byText("span", "Ввести пароль"));
     }
 
     /**
      * Поле для ввода пароля
      */
-    public  WebElement password() {
+    public WebElement password() {
         return $x(byPlaceholderContaining("Пароль"));
     }
 
     /**
      * Кнопка 'Войти'
      */
-    public  WebElement enter() {
+    public WebElement enter() {
         return $x(byText("span", "Войти"));
     }
 
@@ -51,7 +51,7 @@ public class ModalWindowAuthorization {
      * @param login    - Логин
      * @param password - Пароль
      */
-    public static void fullLoginAndPasswordAuthorization(String login, String password) {
+    public void fullLoginAndPasswordAuthorization(String login, String password) {
         ModalWindowAuthorization modalWindowAuthorization = new ModalWindowAuthorization();
         iframe(modalWindowAuthorization.iframeLogin());
         modalWindowAuthorization.accountName().sendKeys(login);
@@ -62,9 +62,10 @@ public class ModalWindowAuthorization {
 
     /**
      * Авторизация по Роли
+     *
      * @param userRole - Роль пользователя под которым авторизируемся.
      */
-    public static void openSiteAndAuthorization(UserRole userRole) {
+    public void openSiteAndAuthorization(UserRole userRole) {
         MainPage mainPage = new MainPage();
         FileReadUser fileReadUser = new FileReadUser();
         open(fileReadUser.getUserUI(userRole).getUrl());

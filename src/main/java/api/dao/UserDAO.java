@@ -10,5 +10,5 @@ import static api.util.JdbcConnection.getInstanceJdbcConnection;
 public interface UserDAO {
     JdbcConnection jb = getInstanceJdbcConnection();
     //read
-    List<User> getAll() ;
+    List<User> getBDUsers(String sql) ;
 }

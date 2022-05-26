@@ -7,10 +7,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static api.util.FileReadProperty.API_URL;
 import static io.restassured.RestAssured.given;
 
@@ -28,32 +24,21 @@ public class RequestsApi {
     }
 
     /**
-     * @param basePath - Базовый путь
-     * @return - Ответ по нужному get запросу
+     * Метод отправлять get-запрос для пользователей
      */
-    public Response response(String basePath) {
+    public Response getUsers() {
         return given()
-                .spec(specification(basePath))
+                .spec(specification("/users"))
                 .when()
-                .get()
-                .then()
-                .extract().response();
-    }
-
-    /**
-     * @return - Список User полученный с помощью get запроса
-     */
-    public List<User> getUsersList() {
-        List<User> users = Arrays.asList((response("/users").getBody().as(User[].class)));
-        return users.stream().sorted(User::compareTo).collect(Collectors.toList());
+                .get();
     }
 
     /**
      * Метод отправлять post-запрос для добавлении машины
      * @param carReq - Машину которую добавится в БД
      */
-    public void postAddCar(Car carReq) {
-        given()
+    public Response postAddCar(Car carReq) {
+       return given()
                 .spec(specification("/addCar"))
                 .body(carReq)
                 .when()
@@ -64,8 +49,8 @@ public class RequestsApi {
      * Метод отправлять post-запрос для добавления пользователя
      * @param userReq - Пользователь который добавится в БД
      */
-    public void postAddUser(User userReq) {
-        given()
+    public Response postAddUser(User userReq) {
+       return given()
                 .spec(specification("/addUser"))
                 .body(userReq)
                 .when()
@@ -77,8 +62,8 @@ public class RequestsApi {
      * @param idAddUser - id Пользователя которому добавляем деньги
      * @param moneyAdd  - Количество денег добавляемые пользователю
      */
-    public void postAddMoneyUser(Integer idAddUser, Double moneyAdd) {
-        given()
+    public Response postAddMoneyUser(Integer idAddUser, Double moneyAdd) {
+       return given()
                 .spec(specification(String.format("/user/%s/money/%s", idAddUser, moneyAdd)))
                 .post();
     }
@@ -88,8 +73,8 @@ public class RequestsApi {
      * @param idAddUser - id Пользователя которому покупаем машину
      * @param idAddCar  - id Машины который ходим купить пользователю
      */
-    public void postAddCarUser(Integer idAddUser, Integer idAddCar) {
-        given()
+    public Response postAddCarUser(Integer idAddUser, Integer idAddCar) {
+       return given()
                 .spec(specification(String.format("/user/%s/buyCar/%s", idAddUser, idAddCar)))
                 .post();
     }

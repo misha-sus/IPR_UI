@@ -9,7 +9,7 @@ public class MainPage {
   /**
    * Кнопка 'Войти'
    */
-  public  WebElement buttonLogin() {
+  public WebElement buttonLogin() {
     return $x(byClassContaining("resplash-btn_primary"));
   }
 }

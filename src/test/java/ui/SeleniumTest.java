@@ -7,20 +7,21 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import ui.AllSelenide.SelenideDriver;
 import ui.mailPageObject.MailPageAuthorized;
+import ui.mailPageObject.ModalWindowAuthorization;
 import ui.mailPageObject.ModalWindowMessages;
 import ui.util.UserRole;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ui.mailPageObject.ModalWindowAuthorization.openSiteAndAuthorization;
 
 public class SeleniumTest {
     private final static MailPageAuthorized mailPageAuthorized = new MailPageAuthorized();
     private final static ModalWindowMessages modalWindowMessages = new ModalWindowMessages();
+    private final static ModalWindowAuthorization modalWindowAuthorization = new ModalWindowAuthorization();
 
     @BeforeEach
     void start() {
-       openSiteAndAuthorization(UserRole.Misha);
+        modalWindowAuthorization.openSiteAndAuthorization(UserRole.Misha);
     }
 
     @Test
@@ -59,7 +60,7 @@ public class SeleniumTest {
      *
      * @return - количество сообщений
      */
-    private static int numberMessagesBeforeSend() {
+    private int numberMessagesBeforeSend() {
         return mailPageAuthorized.list(-1).size();
     }
 
@@ -70,7 +71,7 @@ public class SeleniumTest {
      * @param numberOfElementsToBeMoreThan - число элементов больше чем заданное значение
      * @return -количество сообщений
      */
-    private static int numberMessages(WebElement element, int numberOfElementsToBeMoreThan) {
+    private int numberMessages(WebElement element, int numberOfElementsToBeMoreThan) {
         element.click();
         return mailPageAuthorized.list(numberOfElementsToBeMoreThan).size();
     }
